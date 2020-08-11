@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "com.github.spacialcircumstances:gradle-cucumber-reporting:0.1.21"
+        classpath "io.freefair.gradle:lombok-plugin:5.1.1"
     }
 }
 
@@ -13,6 +14,7 @@ plugins {
     id 'java'
     id 'war'
     id "com.github.spacialcircumstances.gradle-cucumber-reporting" version "0.1.21"
+    id "io.freefair.lombok" version "5.1.1"
 }
 
 group 'gradle_project'
@@ -25,53 +27,29 @@ repositories {
 }
 
 dependencies {
+    compile group: 'io.rest-assured', name: 'rest-assured', version: '4.3.1'
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    providedCompile group: 'org.projectlombok', name: 'lombok', version: '1.18.12'
-    // https://mvnrepository.com/artifact/org.testng/testng
     testCompile group: 'org.testng', name: 'testng', version: '7.3.0'
-    // https://mvnrepository.com/artifact/io.cucumber/cucumber-testng
     compile group: 'io.cucumber', name: 'cucumber-testng', version: '2.4.0'
-    // https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer
     testCompile group: 'io.cucumber', name: 'cucumber-picocontainer', version: '2.4.0'
-    // https://mvnrepository.com/artifact/net.masterthought/maven-cucumber-reporting
     compile group: 'net.masterthought', name: 'maven-cucumber-reporting', version: '3.12.0'
-    // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
     compile group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '4.1.0'
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver
     compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.14.0'
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-firefox-driver
     compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '3.14.0'
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-edge-driver
     compile group: 'org.seleniumhq.selenium', name: 'selenium-edge-driver', version: '3.14.0'
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api
     compile group: 'org.seleniumhq.selenium', name: 'selenium-api', version: '3.14.0'
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
     compile group: 'org.seleniumhq.selenium', name: 'selenium-support', version: '3.14.0'
-    // https://mvnrepository.com/artifact/org.codehaus.janino/janino
     compile group: 'org.codehaus.janino', name: 'janino', version: '3.1.2'
-    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-    // https://mvnrepository.com/artifact/ch.qos.logback/logback-core
     compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
-    // https://mvnrepository.com/artifact/com.codepine.api/testrail-api-java-client
     compile group: 'com.codepine.api', name: 'testrail-api-java-client', version: '2.0.1'
-    // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
-    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
-    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured-all
-    compile group: 'io.rest-assured', name: 'rest-assured-all', version: '4.3.1'
-    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
-    testCompile group: 'io.rest-assured', name: 'rest-assured', version: '4.3.1'
-    // https://mvnrepository.com/artifact/io.rest-assured/json-path
-    compile group: 'io.rest-assured', name: 'json-path', version: '4.3.1'
-    // https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
-    compile group: 'io.rest-assured', name: 'json-schema-validator', version: '4.3.1'
+    compile group: 'com.google.guava', name: 'guava', version: '29.0-jre'
 }
 test {
     useTestNG() {
         scanForTestClasses = false
         testLogging.showStandardStreams = true
-        suites 'testng.xml'
+        suites "src/test/testng.xml"
     }
 }
 cucumberReports {
@@ -80,3 +58,4 @@ cucumberReports {
     reports = files('target/cucumber-reports/CucumberTestReport.json')
 }
 apply plugin: "com.github.spacialcircumstances.gradle-cucumber-reporting"
+apply plugin: "io.freefair.lombok"
